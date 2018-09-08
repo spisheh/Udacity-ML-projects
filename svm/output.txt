@@ -1,0 +1,29 @@
+full Data:
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+training time: 164.497 s
+prediction time: 17.664 s
+0.9840728100113766
+
+1% of Data & kernal= "rbf"
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+training time: 0.102 s
+prediction time: 1.119 s
+0.6160409556313993
+
+
+1% of Data & kernal= "rbf" & C=10000
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+training time: 0.094 s
+prediction time: 0.999 s
+0.8924914675767918
+
+
+full Data & kernal= "rbf" & C=10000
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+training time: 106.286 s
+prediction time: 10.998 s
+0.9908987485779295
