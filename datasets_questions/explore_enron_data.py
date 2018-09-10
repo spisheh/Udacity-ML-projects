@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 """ 
     Starter code for exploring the Enron dataset (emails + finances);
@@ -17,6 +16,27 @@
 
 import pickle
 
-enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
+enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "rb"))
 
 
+#f = open( "../final_project/poi_names.txt", "r" )
+#count=0
+"""for i in f.readlines():
+	print(i[:3])
+	if "(y)" in i:
+		count+=1 
+for i in enron_data.keys():
+	if "JAMES" in i:
+		print(i)"""
+
+"""print(enron_data["Fastow Andrew S".upper()]["total_payments"])
+print(enron_data["Lay Kenneth L".upper()]["total_payments"])
+print(enron_data["Skilling Jeffrey K".upper()]["total_payments"])"""
+e=0
+s=0
+for i in enron_data.values():
+	if i["total_payments"]=="NaN" and i["poi"]:
+		s+=1
+	#if i["email_address"]!="NaN":
+	e+=1
+print(s,e)

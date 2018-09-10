@@ -17,19 +17,19 @@ import sys
 import pickle
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
-dictionary = pickle.load( open("../final_project/final_project_dataset_modified.pkl", "r") )
+dictionary = pickle.load( open("../final_project/final_project_dataset_modified.pkl", "rb") )
 
 ### list the features you want to look at--first item in the 
 ### list will be the "target" feature
 features_list = ["bonus", "salary"]
-data = featureFormat( dictionary, features_list, remove_any_zeroes=True)
+data = featureFormat( dictionary, features_list, remove_any_zeroes=True, sort_keys = '../tools/python2_lesson06_keys.pkl')
 target, features = targetFeatureSplit( data )
 
 ### training-testing split needed in regression, just like classification
 from sklearn.cross_validation import train_test_split
 feature_train, feature_test, target_train, target_test = train_test_split(features, target, test_size=0.5, random_state=42)
 train_color = "b"
-test_color = "b"
+test_color = "r"
 
 
 
@@ -37,13 +37,12 @@ test_color = "b"
 ### Please name it reg, so that the plotting code below picks it up and 
 ### plots it correctly. Don't forget to change the test_color above from "b" to
 ### "r" to differentiate training points from test points.
+from sklearn.linear_model import LinearRegression
 
-
-
-
-
-
-
+reg = LinearRegression()
+reg.fit(feature_train, target_train)
+print("slope:", round(reg.coef_[0] ,3), "intercept:", round(reg.intercept_ ,3))
+print("accuracy", round(reg.score(feature_test, target_test),3))
 
 ### draw the scatterplot, with color-coded training and testing points
 import matplotlib.pyplot as plt
@@ -64,7 +63,12 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+
+"""reg.fit(feature_test, target_test)
+plt.plot(feature_train, reg.predict(feature_train), color="black") 
+print("slope:", round(reg.coef_[0] ,3), "intercept:", round(reg.intercept_ ,3))
+print("accuracy", round(reg.score(feature_test, target_test),3))"""
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
-plt.show()
+plt.savefig("result3.png")
