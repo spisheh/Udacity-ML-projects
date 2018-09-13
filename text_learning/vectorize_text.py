@@ -37,7 +37,7 @@ word_data = []
 temp_counter = 0
 
 
-stopwords=["sara", "shackleton", "chris", "germani"]
+stopwords=["sara", "shackleton", "chris", "germani", "sshacklensf", "cgermannsf"]
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
     for path in from_person:
         ### only look at first 200 emails when developing
@@ -69,7 +69,7 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
         ### append the text to word_data
         word_data.append(content)
         ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-        from_data.append(0 if from_person=="sara" else 1)
+        from_data.append(0 if name=="sara" else 1)
 
         email.close()
 
@@ -93,4 +93,4 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 trf = TfidfVectorizer(use_idf=True, stop_words="english" ) 
 trf.fit_transform(word_data)
 print(len(trf.get_feature_names()))
-print(trf.get_feature_names()[34597])
+

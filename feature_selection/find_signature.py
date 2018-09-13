@@ -3,6 +3,7 @@
 import pickle
 import numpy
 numpy.random.seed(42)
+from sklearn.metrics import accuracy_score
 
 
 ### The words (features) and authors (labels), already largely processed.
@@ -10,8 +11,8 @@ numpy.random.seed(42)
 ### mini-project.
 words_file = "../text_learning/your_word_data.pkl" 
 authors_file = "../text_learning/your_email_authors.pkl"
-word_data = pickle.load( open(words_file, "r"))
-authors = pickle.load( open(authors_file, "r") )
+word_data = pickle.load( open(words_file, "rb"))
+authors = pickle.load( open(authors_file, "rb") )
 
 
 
@@ -27,8 +28,7 @@ vectorizer = TfidfVectorizer(sublinear_tf=True, max_df=0.5,
                              stop_words='english')
 features_train = vectorizer.fit_transform(features_train)
 features_test  = vectorizer.transform(features_test).toarray()
-
-
+print(vectorizer.get_feature_names()[14343])
 ### a classic way to overfit is to use a small number
 ### of data points and a large number of features;
 ### train on only 150 events to put ourselves in this regime
@@ -38,6 +38,12 @@ labels_train   = labels_train[:150]
 
 
 ### your code goes here
-
-
-
+from sklearn.tree import DecisionTreeClassifier as DTC
+clf = DTC(max_depth=5)
+clf.fit(features_train, labels_train)
+x=clf.feature_importances_
+for i in range(len(x)):
+	if x[i]>0.2:
+		print(i,x[i])
+pred = clf.score(features_test, labels_test)
+print(  pred )
